@@ -1,6 +1,7 @@
 <script>
     import Intro from "$lib/Intro.svelte";
     import ContactInfo from "$lib/ContactInfo.svelte";
+    import Projects from "$lib/Projects.svelte";
     import {userInfo, currentTemplate, completeUserInfo} from "../../../stores/store";
 
     $: console.log($completeUserInfo);
@@ -11,13 +12,12 @@
         <Intro />
         <ContactInfo />
     </div>
+    <div class="details">
+        <Projects />
+    </div>
 </div>
 
 <style>
-    .resume{
-        background: #F8F8F8;
-    }
-    
     .intro{
         display: flex;
         flex-direction: column;
@@ -25,5 +25,9 @@
         padding: 2rem 3rem;
         border-radius: 2rem;
         background-color: #fff;
+    }
+
+    .details{
+        padding: 4rem;
     }
 </style>
