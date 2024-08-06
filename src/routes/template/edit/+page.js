@@ -1,13 +1,18 @@
 import { redirect } from "@sveltejs/kit";
 import { get } from "svelte/store";
-import { userInfo, completeUserInfo } from "../../../stores/store";
+import { userInfo, completeUserInfo, repos } from "../../../stores/store";
 
-export async function load() {
+export async function load({ fetch }) {
   const user = get(userInfo);
 
   if (!user) {
     throw redirect(302, "/"); // Redirect to home if userInfo is empty
   } else {
+    //fetch repositories
+    const response = await fetch(user.repos_url);
+    const data = await response.json();
+    repos.set(data);
+
     completeUserInfo.update((value) => ({
       ...value,
       name: user.name || user.login,
