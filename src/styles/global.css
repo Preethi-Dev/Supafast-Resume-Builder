@@ -49,3 +49,17 @@ img {
   font-family: "PP Neue Montreal Thin";
   src: url(/fonts//PPNeueMontreal-Thin.otf);
 }
+
+.special-font {
+  font-family: "PP Neue Montreal Medium";
+  line-height: 100%; /* 10.75rem */
+  background: linear-gradient(
+    94deg,
+    #a983f4 5.37%,
+    #f283f4 58.99%,
+    #f4db83 97.68%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
