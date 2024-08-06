@@ -7,3 +7,7 @@ export const userInfo = writable(null);
 export const currentTemplate = writable(null);
 
 export const completeUserInfo = writable({});
+
+export const repos = writable([]);
+
+export const currentRepos = writable(null);
