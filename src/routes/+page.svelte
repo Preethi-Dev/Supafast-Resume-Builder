@@ -1,5 +1,4 @@
 <script>
-    import "../styles/global.css"
     import {userId, userInfo} from "../stores/store";
     import { goto } from '$app/navigation';
 
@@ -33,7 +32,7 @@
         <div class="intro__logo">
             <img src="/supafast-logo.png" alt="logo"/>
         </div>
-        <p class="intro__title">Resume</p>
+        <p class="intro__title special-font">Resume</p>
     </div>
     <div class="intro__form">
         <div class="userIdForm">
@@ -57,7 +56,6 @@
 </div>
  
 <style>
-
     .error{
         color: red;
         opacity: .6;
@@ -77,7 +75,6 @@
         position: relative;
         max-width: 82.375rem;
         margin: auto;
-        padding: 3rem 4rem;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -85,13 +82,7 @@
     }
 
     .intro__title{
-        font-family: "PP Neue Montreal Medium";
         font-size: 10.75rem;
-        line-height: 100%; /* 10.75rem */
-        background: linear-gradient(94deg, #A983F4 5.37%, #F283F4 58.99%, #F4DB83 97.68%);
-        background-clip: text;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
     }
 
     .indicator{
