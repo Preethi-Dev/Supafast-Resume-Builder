@@ -26,7 +26,7 @@ A modern resume builder application developed using Svelte and SvelteKit. This t
    cd resume-builder
    ```
 
-   Install dependencies:
+2. Install dependencies:
 
    ```
    npm install
@@ -34,7 +34,9 @@ A modern resume builder application developed using Svelte and SvelteKit. This t
 
    or
 
+   ```
    yarn install
+   ```
 
 ## Configuration
 
