@@ -2,10 +2,10 @@
     import {completeUserInfo, currentTemplate, isPreviewMode} from "../../stores/store";
     export let isEditMode;
     export let index;
-    let year = "Year";
-    let designation = "Your Designation...";
-    let companyName = "company name...";
-    let description = "describe your experience milestones...";
+    let year = $completeUserInfo?.experience?.[index]?.year || "Year";
+    let designation = $completeUserInfo?.experience?.[index]?.designation || "Your Designation...";
+    let companyName = $completeUserInfo?.experience?.[index]?.company_name || "company name...";
+    let description = $completeUserInfo?.experience?.[index]?.description || "describe your experience milestones...";
     let isDeleted = false;
 
     let experience;

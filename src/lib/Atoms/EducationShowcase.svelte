@@ -1,8 +1,8 @@
 <script>
     import {completeUserInfo, isPreviewMode} from "../../stores/store";
-    let year = "Year";
-    let name = "Course Name";
-    let description = "describe your academic milestones...";
+    let year = $completeUserInfo?.education?.year || "Year";
+    let name = $completeUserInfo?.education?.name || "Course Name";
+    let description = $completeUserInfo?.education?.description || "describe your academic milestones...";
 
     let education;
 
