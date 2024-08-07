@@ -4,10 +4,10 @@
     export let isEditMode;
     export let index;
 
-    let isClose = false;
+    // let isClose = false;
 
     function handleClick(e){
-        isClose = true;
+        // isClose = true;
         completeUserInfo.update(obj => {
             return {...obj, skills: obj?.skills?.filter(s => s !== skill)}
         })
@@ -24,7 +24,7 @@
     }
 </script>
 
-{#if !isClose}
+<!-- {#if !isClose} -->
     <div class="{$currentTemplate === "template 02" ? "template-02" : ""}">
         {#if $isPreviewMode}
             <p>{skill}</p>
@@ -33,7 +33,7 @@
         {/if}
         {#if !$isPreviewMode && isEditMode}<img src="/small-close.svg" on:click={handleClick} alt="close icon">{/if}
     </div>
-{/if}
+<!-- {/if} -->
 <style>
     div{
         display: flex;
