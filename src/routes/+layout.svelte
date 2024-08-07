@@ -1,7 +1,9 @@
 <script>
     import "../styles/global.css"; 
     import { page } from '$app/stores';
+    import {isEditProjects} from "../stores/store";
     import NavBar from "$lib/NavBar.svelte";
+    import ReposModal from "$lib/ReposModal.svelte";
 
     let isHome;
     $: isHome = $page.route.id === "/";
@@ -17,6 +19,9 @@
         <slot></slot>
     </div>
 </main>
+{#if $isEditProjects}
+    <ReposModal />
+{/if}
 
 <style>
     main{
