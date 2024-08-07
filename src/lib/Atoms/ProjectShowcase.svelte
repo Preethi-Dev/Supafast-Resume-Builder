@@ -1,26 +1,21 @@
 <script>
-    import {repos} from "../../stores/store"
+    import {currentRepos} from "../../stores/store"
     export let project;
-
-    let created_at = convertDateToReadable(project.created_at);
-    let name = project.name;
-    let description = project.description;
+    export let name;
+    export let description;
+    export let created_at;
     
 
     function handleBlur(e, key, val){
-         repos.update(projects => {
-            const projectToUpdate = projects.find(proj => proj.id === project.id);
-            if (projectToUpdate) {
-                projectToUpdate[key] = val;
-            }
+         currentRepos.update(projects => {     
+             const projectToUpdate = projects.find(proj => proj.id === project.id);             
+             if (projectToUpdate) {
+                 projectToUpdate[key] = val;
+                }     
+                console.log(projects);
+                
             return projects;
         });
-    }
-
-    function convertDateToReadable(created_at){
-        const date = new Date(created_at);
-        const options = { year: 'numeric', month: 'short' };
-        return date.toLocaleDateString('en-US', options);
     }
 </script>
 
@@ -40,6 +35,8 @@
     }
 
     .project__time{
+        width: 4.5rem;
+        align-self: flex-end;
         font-size: 1rem;
         opacity: .5;
         flex-shrink: 0;
