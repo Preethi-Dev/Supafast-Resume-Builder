@@ -1,13 +1,29 @@
 <script>
-
+import {isPreviewMode, resume} from "../stores/store";
+import generatePDF from "../utils/generatePDF"
+function handlePreview(){
+    isPreviewMode.set(true);
+}
+function handleDownload(){
+     generatePDF("resumeToExport");
+    
+}
 </script>
 
 <div class="nav">
     <a href="/"><img src="/logo-only.png" alt=""></a>
-    <div class="nav__btn">
-        <img src="/preview.svg" alt="preview div" />
-        <a href="/template/preview">Preview</a>
-    </div>
+     {#if !$isPreviewMode}
+        <div class="nav__btn" on:click={handlePreview}>
+            <img src="/preview.svg" alt="preview div" />
+            <a href="/template/preview">Preview</a>
+        </div>
+        {:else}
+            <div class="nav__btn" on:click={handleDownload}>
+            <img src="/download.svg" alt="download" />
+            <a href="">Download</a>
+        </div>
+        {/if}
+  
 </div>
 
 <style>
@@ -30,7 +46,7 @@
         gap: 0.25rem;
     }
 
-    .nav__btn > a{
+    .nav__btn > a, .nav__btn > button{
         color: #2C0A70;
         font-size: 1rem;
     }
