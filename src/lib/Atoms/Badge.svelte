@@ -1,5 +1,5 @@
 <script>
-    import {completeUserInfo, currentTemplate} from "../../stores/store"
+    import {completeUserInfo, currentTemplate, isPreviewMode} from "../../stores/store"
     export let skill;
     export let isEditMode;
     export let index;
@@ -26,8 +26,12 @@
 
 {#if !isClose}
     <div class="{$currentTemplate === "template 02" ? "template-02" : ""}">
-        <p bind:innerText={skill} contenteditable on:blur={handleBlur}></p>
-        {#if isEditMode}<img src="/small-close.svg" on:click={handleClick} alt="close icon">{/if}
+        {#if $isPreviewMode}
+            <p>{skill}</p>
+        {:else}
+            <p bind:innerText={skill} contenteditable on:blur={handleBlur}></p>
+        {/if}
+        {#if !$isPreviewMode && isEditMode}<img src="/small-close.svg" on:click={handleClick} alt="close icon">{/if}
     </div>
 {/if}
 <style>

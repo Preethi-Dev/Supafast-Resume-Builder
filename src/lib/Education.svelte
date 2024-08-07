@@ -1,6 +1,6 @@
 <script>
   import EducationShowcase from "./Atoms/EducationShowcase.svelte";
-  import {currentTemplate} from "../stores/store"
+  import {currentTemplate, isPreviewMode} from "../stores/store"
   
   let isEditMode = false;
   let isDeleted = false;
@@ -18,11 +18,11 @@
 </script>
 
 {#if !isDeleted}
-  <div class="education {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
-    {#if isEditMode}
-    <div class="education__edit">
-        <img src="/delete.svg" alt="" on:click={handleDelete}>
-    </div>
+  <div style="border-color: {$isPreviewMode ? "transparent" : "#A983F4"}" class="education {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
+    {#if !$isPreviewMode && isEditMode}
+      <div class="education__edit">
+          <img src="/delete.svg" alt="" on:click={handleDelete}>
+      </div>
     {/if}
     <div class="education__title">
       <p>Eductaion</p>

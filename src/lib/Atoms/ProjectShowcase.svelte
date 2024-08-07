@@ -1,5 +1,5 @@
 <script>
-    import {currentRepos} from "../../stores/store"
+    import {currentRepos, isPreviewMode} from "../../stores/store"
     export let project;
     export let name;
     export let description;
@@ -20,11 +20,19 @@
 </script>
 
 <div class="project">
-    <p bind:innerText={created_at} class="project__time" contenteditable on:blur={(e) => handleBlur(e, "created_at", created_at)}></p>
-    <div class="project__info">
-        <p bind:innerText={name} class="project__name" contenteditable on:blur={(e) => handleBlur(e, "name", name)}></p>
-        <p bind:innerText={description} class="project__description" contenteditable on:blur={(e) => handleBlur(e, "description", description)}></p>
-    </div>
+    {#if $isPreviewMode}
+        <p class="project__time">{created_at}</p>
+        <div class="project__info">
+            <p class="project__name">{name}</p>
+            <p class="project__description">{description}</p>
+        </div>
+    {:else}
+        <p bind:innerText={created_at} class="project__time" contenteditable on:blur={(e) => handleBlur(e, "created_at", created_at)}></p>
+        <div class="project__info">
+            <p bind:innerText={name} class="project__name" contenteditable on:blur={(e) => handleBlur(e, "name", name)}></p>
+            <p bind:innerText={description} class="project__description" contenteditable on:blur={(e) => handleBlur(e, "description", description)}></p>
+        </div>      
+    {/if}
 </div>
 
 <style>

@@ -1,6 +1,6 @@
 <script>
   import ExperienceShowcase from "./Atoms/ExperienceShowcase.svelte";
-  import {currentTemplate} from "../stores/store"
+  import {currentTemplate, isPreviewMode} from "../stores/store"
   let isEditMode = false;
   let isDeleted = false;
 
@@ -21,8 +21,8 @@
 </script>
 
 {#if !isDeleted}
-  <div class="experience {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
-    {#if isEditMode}
+  <div style="border-color: {$isPreviewMode && "transparent"}" class="experience {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
+    {#if !$isPreviewMode && isEditMode}
     <div class="experience__edit">
         <img src="/add.svg" alt="" on:click={handleAdd}>
         <img src="/delete.svg" alt="" on:click={handleDelete}>

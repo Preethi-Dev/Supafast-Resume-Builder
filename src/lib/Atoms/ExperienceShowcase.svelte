@@ -1,5 +1,5 @@
 <script>
-    import {completeUserInfo, currentTemplate} from "../../stores/store";
+    import {completeUserInfo, currentTemplate, isPreviewMode} from "../../stores/store";
     export let isEditMode;
     export let index;
     let year = "Year";
@@ -7,6 +7,10 @@
     let companyName = "company name...";
     let description = "describe your experience milestones...";
     let isDeleted = false;
+
+    let experience;
+    
+    $: experience = $completeUserInfo?.experience?.[index];
 
     function handleBlur(e, key, value){
         // update $completeUserInfo.experience
@@ -22,21 +26,34 @@
 </script>
 
 {#if !isDeleted}
-<div class="experience {$currentTemplate === "template 02" ? "template-02" : ""}">
-    {#if isEditMode}
+<div style="border-color: {$isPreviewMode && "transparent"}" class="experience {$currentTemplate === "template 02" ? "template-02" : ""}">
+    {#if !$isPreviewMode && isEditMode}
             <div class="experience__edit">
                 <img src="/delete.svg" alt="" on:click={handleDelete}>
             </div>
-    {/if}  
-    <div class="experience__intro">
-        <p bind:innerText={year} class="experience__time" contenteditable on:blur={(e) => handleBlur(e, "year", year)}></p>
-        <p bind:innerText={companyName} class="experience__designation" contenteditable on:blur={(e) => handleBlur(e, "company_name", companyName)}></p>
-    </div>
+    {/if} 
     
-    <div class="experience__info">
-        <p bind:innerText={designation} class="experience__name" contenteditable on:blur={(e) => handleBlur(e, "designation", designation)}></p>
-        <p bind:innerText={description} class="experience__description" contenteditable on:blur={(e) => handleBlur(e, "description", description)}></p>
-    </div>
+    {#if !$isPreviewMode}
+        <div class="experience__intro">
+            <p bind:innerText={year} class="experience__time" contenteditable on:blur={(e) => handleBlur(e, "year", year)}></p>
+            <p bind:innerText={companyName} class="experience__designation" contenteditable on:blur={(e) => handleBlur(e, "company_name", companyName)}></p>
+        </div>
+    
+        <div class="experience__info">
+            <p bind:innerText={designation} class="experience__name" contenteditable on:blur={(e) => handleBlur(e, "designation", designation)}></p>
+            <p bind:innerText={description} class="experience__description" contenteditable on:blur={(e) => handleBlur(e, "description", description)}></p>
+        </div>
+    {:else}
+        <div class="experience__intro">
+            <p class="experience__time">{experience?.year ?? ""}</p>
+            <p class="experience__designation">{experience?.company_name ?? ""}</p>
+        </div>
+    
+        <div class="experience__info">
+            <p class="experience__name">{experience?.designation ?? ""}</p>
+            <p class="experience__description">{experience?.description ?? ""}</p>
+        </div>
+    {/if}
 </div>
 {/if}
 

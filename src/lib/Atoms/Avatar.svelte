@@ -1,5 +1,5 @@
 <script>
-    import {completeUserInfo} from "../../stores/store"
+    import {completeUserInfo, isPreviewMode} from "../../stores/store"
     export let avatar = $completeUserInfo.avatar;
 
     let imageUrl = '';
@@ -20,7 +20,9 @@
 
 <div class="container">
     <img src={imageUrl || avatar} alt="avatar">
-    <input type="file" accept="image/*" on:change={handleFileUpload}>
+    {#if !$isPreviewMode}
+        <input type="file" accept="image/*" on:change={handleFileUpload}>
+    {/if}
 </div>
 
 <style>

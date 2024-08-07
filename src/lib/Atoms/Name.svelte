@@ -1,5 +1,5 @@
 <script>
-    import {completeUserInfo, currentTemplate} from "../../stores/store"
+    import {completeUserInfo, currentTemplate, isPreviewMode} from "../../stores/store"
     export let name = $completeUserInfo.name;
 
     function handleBlur(e){
@@ -7,8 +7,11 @@
     }
 </script>
 
-<p bind:innerText={name} on:blur={handleBlur} class="{$currentTemplate === "template 02" ? "template-02" : ""}" contenteditable>{name}</p>
-
+{#if $isPreviewMode}
+    <p class="{$currentTemplate === "template 02" ? "template-02" : ""}">{name}</p>
+{:else}
+    <p bind:innerText={name} on:blur={handleBlur} class="{$currentTemplate === "template 02" ? "template-02" : ""}" contenteditable>{name}</p>
+{/if}
 <style>
     p {
         color: #000;

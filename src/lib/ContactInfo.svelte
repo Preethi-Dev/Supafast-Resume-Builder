@@ -1,5 +1,5 @@
 <script>
-    import {completeUserInfo, currentTemplate} from "../stores/store";
+    import {completeUserInfo, currentTemplate, isPreviewMode} from "../stores/store";
     import {ICONS} from "../utils/constants"
     export let contacts = $completeUserInfo.contacts;
     
@@ -9,7 +9,14 @@
 </script>
 <div class="container {$currentTemplate === "template 02" ? "template-02" : ""}">
     {#each Object.keys(contacts) as key}   
-        <div class="contact"><img src={ICONS[key]} alt="icon"><p bind:innerText={contacts[key]} on:blur={(e) => handleBlur(e, key)} contenteditable>{contacts[key]}</p></div>
+        <div class="contact">
+            <img src={ICONS[key]} alt="icon">
+            {#if $isPreviewMode}
+                    <p>{contacts[key]}</p>
+            {:else}
+                <p bind:innerText={contacts[key]} on:blur={(e) => handleBlur(e, key)} contenteditable>{contacts[key]}</p>
+            {/if}
+        </div>
     {/each}
 </div>
 

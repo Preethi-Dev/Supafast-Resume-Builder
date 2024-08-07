@@ -1,7 +1,7 @@
 <script>
     import "../styles/global.css"; 
     import { page } from '$app/stores';
-    import {isEditProjects, currentTemplate} from "../stores/store";
+    import {resume, isEditProjects, currentTemplate, isPreviewMode} from "../stores/store";
     import NavBar from "$lib/NavBar.svelte";
     import ReposModal from "$lib/ReposModal.svelte";
 
@@ -10,14 +10,17 @@
     $: template = $currentTemplate;
     $: isHome = $page.route.id === "/";
     $: isEditPage = $page.route.id.includes("edit");
-    
+
+    let resumeToExport;    
+
+    $: resume.set(resumeToExport);
 </script>
 
-{#if isEditPage}
+{#if isEditPage || $isPreviewMode}
     <NavBar />
 {/if}
-<main>
-    <div class="container {(template === "template 02" && isEditPage) ? "template-02" : "template-01"} {isHome ? "bg" : ""} {isEditPage ? "shrink-padding" : "main-center grow-padding"}">
+<main class="{$isPreviewMode ? "bg" : ""}">
+    <div bind:this={resumeToExport} id="resumeToExport" class="container {(template === "template 02" && !isHome) ? "template-02" : "template-01"} {isHome ? "bg" : ""} {isEditPage ? "shrink-padding" : "main-center grow-padding"}">
         <slot></slot>
     </div>
 </main>

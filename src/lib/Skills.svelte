@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-  import { repos, completeUserInfo, currentTemplate } from "../stores/store";
+  import { repos, completeUserInfo, currentTemplate, isPreviewMode } from "../stores/store";
   import Badge from "./Atoms/Badge.svelte";
 
 
@@ -9,11 +9,13 @@
 
   let skills;
 
-  $: console.log(skills);
+  $: console.log($completeUserInfo?.skills);
 
   onMount(() => {
-    skills = fetchSkills();
-    completeUserInfo.update(obj => ({...obj, skills: skills}))
+    if(!$isPreviewMode){
+      skills = fetchSkills();
+      completeUserInfo.update(obj => ({...obj, skills: skills}))
+    }
   })
   
 
@@ -37,8 +39,8 @@
 </script>
 
 {#if !isDeleted}
-  <div class="skills {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
-    {#if isEditMode}
+  <div style="border-color: {$isPreviewMode && "transparent"}" class="skills {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
+    {#if !$isPreviewMode && isEditMode}
         <div class="skills__edit">
             <img src="/add.svg" alt="" on:click={handleAdd}>
             <img src="/delete.svg" alt="" on:click={handleDelete}>
@@ -49,8 +51,8 @@
       <div class="horizontal-line"></div>
     </div>
     <div class="skills__showcase">
-        {#if skills}
-            {#each skills as skill, index}
+        {#if $completeUserInfo?.skills}
+            {#each $completeUserInfo?.skills as skill, index}
                 <Badge {skill} {isEditMode} {index}/>
             {/each}
         {/if}

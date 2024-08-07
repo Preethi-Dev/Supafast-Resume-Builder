@@ -1,6 +1,6 @@
 <script>
   import ProjectShowcase from "./Atoms/ProjectShowcase.svelte";
-  import { repos, currentRepos, isEditProjects, reposChoosedTemporary, currentTemplate } from "../stores/store";
+  import { repos, currentRepos, isEditProjects, reposChoosedTemporary, currentTemplate, isPreviewMode } from "../stores/store";
   
   let isEditMode = false;
   let isDeleted = false;
@@ -22,8 +22,8 @@
 </script>
 
 {#if !isDeleted}
-  <div class="projects {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
-    {#if isEditMode}
+  <div style="border-color: {$isPreviewMode ? "transparent" : "#A983F4"}" class="projects {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
+    {#if !$isPreviewMode & isEditMode}
       <div class="projects__edit">
         <div><img src="/edit.svg" alt="icon" on:click={handleEdit}></div>
         <div><img src="/delete.svg" alt="icon" on:click={handleDelete}></div>
