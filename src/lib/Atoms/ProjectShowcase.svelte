@@ -32,6 +32,7 @@
         display: flex;
         gap: 4.5rem;
         max-width: 52rem;
+        width: 52rem;
     }
 
     .project__time{
