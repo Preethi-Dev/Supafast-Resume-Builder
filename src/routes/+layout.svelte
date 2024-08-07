@@ -1,7 +1,7 @@
 <script>
     import "../styles/global.css"; 
     import { page } from '$app/stores';
-    import {resume, isEditProjects, currentTemplate, isPreviewMode} from "../stores/store";
+    import {isEditProjects, currentTemplate, isPreviewMode} from "../stores/store";
     import NavBar from "$lib/NavBar.svelte";
     import ReposModal from "$lib/ReposModal.svelte";
 
@@ -9,24 +9,24 @@
     let template;
     $: template = $currentTemplate;
     $: isHome = $page.route.id === "/";
+    $: isTemplatePage = $page.route.id === "/template";
     $: isEditPage = $page.route.id.includes("edit");
 
-    let resumeToExport;    
-
-    $: resume.set(resumeToExport);
 </script>
 
-{#if isEditPage || $isPreviewMode}
-    <NavBar />
-{/if}
-<main class="{$isPreviewMode ? "bg" : ""}">
-    <div bind:this={resumeToExport} id="resumeToExport" class="container {(template === "template 02" && !isHome) ? "template-02" : "template-01"} {isHome ? "bg" : ""} {isEditPage ? "shrink-padding" : "main-center grow-padding"}">
-        <slot></slot>
-    </div>
-</main>
-{#if $isEditProjects}
-    <ReposModal />
-{/if}
+<div class="{$isPreviewMode && !isHome ? "preview-bg" : ""} space-t">
+    {#if (isEditPage || $isPreviewMode) && !isHome && template}
+        <NavBar />
+    {/if}
+    <main>
+        <div id="resumeToExport" class="container {(template === "template 02" && !isHome && !isTemplatePage) ? "template-02" : "template-01"} {isHome ? "bg" : ""} {isEditPage ? "shrink-padding" : "main-center grow-padding"}">
+            <slot></slot>
+        </div>
+    </main>
+    {#if $isEditProjects}
+        <ReposModal />
+    {/if}
+</div>
 
 <style>
 
@@ -38,6 +38,10 @@
 
     .shrink-padding{
         padding: 1.5rem;
+    }
+
+    .space-t{
+        padding-top: 1.5rem;
     }
 
     .grow-padding{
@@ -59,6 +63,15 @@
 
     .bg{
         background-image: url('/bg.svg');
+        background-size: cover; 
+        background-position: center; 
+        background-repeat: no-repeat; 
+        width: 100%; 
+        height: 100%;
+    }
+
+    .preview-bg{
+        background-image: url('/preview-bg.svg');
         background-size: cover; 
         background-position: center; 
         background-repeat: no-repeat; 
