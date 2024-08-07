@@ -1,17 +1,28 @@
 <script>
-import {isPreviewMode, resume} from "../stores/store";
-import generatePDF from "../utils/generatePDF"
+import {completeUserInfo, isPreviewMode} from "../stores/store";
+import generatePDF from "../utils/generatePDF";
+import { goto } from '$app/navigation';
 function handlePreview(){
     isPreviewMode.set(true);
 }
 function handleDownload(){
-     generatePDF("resumeToExport");
-    
+    generatePDF("resumeToExport");  
+}
+function handleClick(){
+    isPreviewMode.set(false);
+}
+function handleRedirect(){
+    window.location.assign("/")
 }
 </script>
 
 <div class="nav">
-    <a href="/"><img src="/logo-only.png" alt=""></a>
+    <div class="nav__route">
+    {#if $isPreviewMode}
+        <a href="/template/edit" style="cursor: pointer;" on:click={handleClick}><img src="/goback.svg" alt="arrow"></a>
+    {/if}
+    <a href="/"><img src="/logo-only.png" on:click={handleRedirect} alt=""></a>
+    </div>
      {#if !$isPreviewMode}
         <div class="nav__btn" on:click={handlePreview}>
             <img src="/preview.svg" alt="preview div" />
@@ -36,7 +47,13 @@ function handleDownload(){
         background: rgba(255, 255, 255, 0.40);
         backdrop-filter: blur(12px);
         padding: 1.125rem 2.1875rem;
-        margin: 1.5rem;
+        margin: 0 1.5rem;
+    }
+
+    .nav__route{
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
     }
 
     .nav__btn{
