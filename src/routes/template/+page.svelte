@@ -11,8 +11,8 @@
 <div class="template">
     <p class="template__title">Choose your <span class="special-font">Style</span></p>
     <div class="template__choice" on:click={handleTemplateClick}>
-        <img src="/resume-01.png" alt="resume 01" data-template="template 01">
-        <img src="/resume-02.png" alt="resume 02" data-template="template 02">
+        <img src="/template-01.svg" alt="resume 01" data-template="template 01">
+        <img src="/template-02.svg" alt="resume 02" data-template="template 02">
     </div>
 </div>
 
@@ -31,10 +31,11 @@
 
     .template__choice{
         display: flex;
-        justify-content: space-between;
+        justify-content: space-around;
     }
 
     .template__choice > img {
+      width: 28rem;
       cursor: pointer;
       border: 2px solid transparent; 
       border-radius: 1rem;
