@@ -10,9 +10,10 @@
   let skills;
 
   $: console.log($completeUserInfo?.skills);
+  
 
   onMount(() => {
-    if(!$isPreviewMode){
+    if(!$completeUserInfo.skills && !$isPreviewMode){
       skills = fetchSkills();
       completeUserInfo.update(obj => ({...obj, skills: skills}))
     }
@@ -28,9 +29,8 @@
   function handleDelete(e){
     isDeleted = true;
   }
-  function handleAdd(e){
-    skills = [...skills, "new skill"];
-    completeUserInfo.update(obj => ({...obj, skills: skills}))
+  function handleAdd(e){    
+    completeUserInfo.update(obj => ({...obj, skills: [...$completeUserInfo?.skills, "new skill"]}))
   }
 
   function fetchSkills(){
