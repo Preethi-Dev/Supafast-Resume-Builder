@@ -1,6 +1,6 @@
 <script>
   import EducationShowcase from "./Atoms/EducationShowcase.svelte";
-
+  import {currentTemplate} from "../stores/store"
   
   let isEditMode = false;
   let isDeleted = false;
@@ -18,7 +18,7 @@
 </script>
 
 {#if !isDeleted}
-  <div class="education" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
+  <div class="education {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
     {#if isEditMode}
     <div class="education__edit">
         <img src="/delete.svg" alt="" on:click={handleDelete}>
@@ -47,6 +47,20 @@
   .education:hover {
     border-radius: 0.5rem;
     border: 1px solid #A983F4;
+  }
+
+  .template-02 .education__title p{
+    color: #fff;
+    opacity: .8;
+  }
+
+  .template-02 .horizontal-line{
+    background-color: #fff;
+    opacity: .8;
+  }
+
+  .template-02 .education__edit > * {
+    background-color: rgba(255, 255, 255, .2)
   }
 
   .education__title {

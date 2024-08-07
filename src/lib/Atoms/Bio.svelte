@@ -1,5 +1,5 @@
 <script>
-    import {completeUserInfo} from "../../stores/store"
+    import {completeUserInfo, currentTemplate} from "../../stores/store"
     export let bio = $completeUserInfo.bio;
     
     let isDataInAPI;
@@ -16,7 +16,7 @@
     }
 </script>
 
-<p bind:innerText={bio} on:blur={handleBlur} on:input={handleInput} class="{isDataInAPI ? "active" : "inactive"}" contenteditable>{bio}</p>
+<p bind:innerText={bio} on:blur={handleBlur} on:input={handleInput} class="{isDataInAPI ? "active" : "inactive"} {$currentTemplate === "template 02" ? "template-02" : ""}" contenteditable>{bio}</p>
 
 <style>
     p{
@@ -31,4 +31,9 @@
     .inactive{
         color: rgba(0,0,0,0.3);
     }
+
+    .template-02, .template-02.active{
+        color: #fff;
+        opacity: .8;
+    }  
 </style>

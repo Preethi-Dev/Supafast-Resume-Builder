@@ -1,6 +1,6 @@
 <script>
   import ProjectShowcase from "./Atoms/ProjectShowcase.svelte";
-  import { repos, currentRepos, isEditProjects, reposChoosedTemporary } from "../stores/store";
+  import { repos, currentRepos, isEditProjects, reposChoosedTemporary, currentTemplate } from "../stores/store";
   
   let isEditMode = false;
   let isDeleted = false;
@@ -22,7 +22,7 @@
 </script>
 
 {#if !isDeleted}
-  <div class="projects" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
+  <div class="projects {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
     {#if isEditMode}
       <div class="projects__edit">
         <div><img src="/edit.svg" alt="icon" on:click={handleEdit}></div>
@@ -54,6 +54,20 @@
   .projects:hover {
     border-radius: 0.5rem;
     border: 1px solid #A983F4;
+  }
+
+  .template-02 .projects__title p{
+    color: #fff;
+    opacity: .8;
+  }
+
+  .template-02 .horizontal-line{
+    background-color: #fff;
+    opacity: .8;
+  }
+
+  .template-02 .projects__edit > * {
+    background-color: rgba(255, 255, 255, .2)
   }
 
   .projects__title {

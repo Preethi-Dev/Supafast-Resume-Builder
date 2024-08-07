@@ -1,5 +1,5 @@
 <script>
-    import {completeUserInfo} from "../../stores/store"
+    import {completeUserInfo, currentTemplate} from "../../stores/store"
     export let name = $completeUserInfo.name;
 
     function handleBlur(e){
@@ -7,7 +7,7 @@
     }
 </script>
 
-<p bind:innerText={name} on:blur={handleBlur} contenteditable>{name}</p>
+<p bind:innerText={name} on:blur={handleBlur} class="{$currentTemplate === "template 02" ? "template-02" : ""}" contenteditable>{name}</p>
 
 <style>
     p {
@@ -21,4 +21,8 @@
         outline: 2px solid #A983F4;
     }
 
+    .template-02{
+        color: #fff;
+        opacity: .8;
+    }
 </style>

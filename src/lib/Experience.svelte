@@ -1,8 +1,10 @@
 <script>
   import ExperienceShowcase from "./Atoms/ExperienceShowcase.svelte";
-
+  import {currentTemplate} from "../stores/store"
   let isEditMode = false;
   let isDeleted = false;
+
+  let experiences = [ExperienceShowcase];  
 
   function handleMouseEnter(e){
     isEditMode = true; 
@@ -13,12 +15,16 @@
   function handleDelete(e){
     isDeleted = true;
   }
+  function handleAdd(e){
+    experiences = [...experiences, ExperienceShowcase];
+  }
 </script>
 
 {#if !isDeleted}
-  <div class="experience" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
+  <div class="experience {$currentTemplate === "template 02" ? "template-02" : ""}" on:mouseenter={handleMouseEnter} on:mouseleave={handleMouseLeave}>
     {#if isEditMode}
     <div class="experience__edit">
+        <img src="/add.svg" alt="" on:click={handleAdd}>
         <img src="/delete.svg" alt="" on:click={handleDelete}>
     </div>
     {/if}
@@ -27,7 +33,9 @@
       <div class="horizontal-line"></div>
     </div>
     <div class="experience__showcase">
-        <ExperienceShowcase />
+        {#each experiences as Experience, index}
+          <Experience {isEditMode} {index}/>
+        {/each}
     </div>
   </div>
 {/if}
@@ -53,6 +61,20 @@
     gap: 2.5rem;
   }
 
+  .template-02 .experience__title p{
+    color: #fff;
+    opacity: .8;
+  }
+
+  .template-02 .horizontal-line{
+    background-color: #fff;
+    opacity: .8;
+  }
+
+  .template-02 .experience__edit > * {
+    background-color: rgba(255, 255, 255, .2)
+  }
+
   .experience__edit {
     position: absolute;
     right: 0;
@@ -61,7 +83,7 @@
     gap: 1rem;
   }
 
-  .experience__edit > * {
+  :global(.experience__edit > *) {
     cursor: pointer;
     display: flex;
     align-items: center;

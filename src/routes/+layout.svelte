@@ -1,11 +1,13 @@
 <script>
     import "../styles/global.css"; 
     import { page } from '$app/stores';
-    import {isEditProjects} from "../stores/store";
+    import {isEditProjects, currentTemplate} from "../stores/store";
     import NavBar from "$lib/NavBar.svelte";
     import ReposModal from "$lib/ReposModal.svelte";
 
     let isHome;
+    let template;
+    $: template = $currentTemplate;
     $: isHome = $page.route.id === "/";
     $: isEditPage = $page.route.id.includes("edit");
     
@@ -15,7 +17,7 @@
     <NavBar />
 {/if}
 <main>
-    <div class="container {isHome ? "bg" : ""} {isEditPage ? "shrink-padding" : "main-center grow-padding"}">
+    <div class="container {(template === "template 02" && isEditPage) ? "template-02" : "template-01"} {isHome ? "bg" : ""} {isEditPage ? "shrink-padding" : "main-center grow-padding"}">
         <slot></slot>
     </div>
 </main>
@@ -24,6 +26,7 @@
 {/if}
 
 <style>
+
     main{
         display: flex;
         min-height: 100vh;
@@ -60,5 +63,13 @@
         height: 100%;
     }
 
+    .template-01{
+        background-color: #f8f8f8;
+    }
+
+    .template-02{
+        background-color: #171717;
+        color: rgba(255, 255, 255, .8);
+    }
 
 </style>
