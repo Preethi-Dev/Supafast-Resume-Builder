@@ -2,9 +2,11 @@
     import Intro from "$lib/Intro.svelte";
     import ContactInfo from "$lib/ContactInfo.svelte";
     import Projects from "$lib/Projects.svelte";
-    import {userInfo, currentTemplate, completeUserInfo} from "../../../stores/store";
+    import {userInfo, currentTemplate, completeUserInfo, currentRepos} from "../../../stores/store";
+  import Education from "$lib/Education.svelte";
+  import Experience from "$lib/Experience.svelte";
 
-    $: console.log($completeUserInfo);
+    $: console.log($completeUserInfo, $currentTemplate);
 </script>
 
 <div class="resume">
@@ -13,7 +15,9 @@
         <ContactInfo />
     </div>
     <div class="details">
-        <Projects />
+        {#if $currentRepos.length > 0} <Projects />{/if}
+        <Education />
+        <Experience />
     </div>
 </div>
 
@@ -28,6 +32,9 @@
     }
 
     .details{
+        display: flex;
+        flex-direction: column;
+        gap: 3rem;
         padding: 4rem;
     }
 </style>
