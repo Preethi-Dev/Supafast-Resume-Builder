@@ -10,4 +10,8 @@ export const completeUserInfo = writable({});
 
 export const repos = writable([]);
 
-export const currentRepos = writable(null);
+export const currentRepos = writable([]);
+
+export const isEditProjects = writable(false);
+
+export const reposChoosedTemporary = writable([]);
