@@ -15,3 +15,7 @@ export const currentRepos = writable([]);
 export const isEditProjects = writable(false);
 
 export const reposChoosedTemporary = writable([]);
+
+export const isPreviewMode = writable(false);
+
+export const resume = writable(null);
