@@ -31,7 +31,7 @@ export async function load({ fetch }) {
         phone: "+91-xxxxxxxxxx",
         email: user.email || "name@domain.com",
         links: user.html_url,
-        location: user.location,
+        location: user.location || "your location",
       },
     }));
   }
