@@ -1,6 +1,11 @@
 import { redirect } from "@sveltejs/kit";
 import { get } from "svelte/store";
-import { userInfo, completeUserInfo, repos } from "../../../stores/store";
+import {
+  userInfo,
+  completeUserInfo,
+  repos,
+  currentRepos,
+} from "../../../stores/store";
 
 export async function load({ fetch }) {
   const user = get(userInfo);
@@ -12,6 +17,7 @@ export async function load({ fetch }) {
     const response = await fetch(user.repos_url);
     const data = await response.json();
     repos.set(data);
+    currentRepos.set(data.filter((repo, index) => index < 3));
 
     completeUserInfo.update((value) => ({
       ...value,
